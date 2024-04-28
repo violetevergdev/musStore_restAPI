@@ -1,16 +1,22 @@
 package app
 
-import "github.com/gin-gonic/gin"
+import (
+	"musicstore_rest_api/internal/database/postgres"
+	"musicstore_rest_api/models"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
+)
+
+func init() {
+	postgres.ConnectDB()
+}
 
 func Run() {
 	Router:= gin.Default()
 
-	Router.GET("/app",  func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
-	
-	})
+	Router.GET("/app", models.GetTracks )
+	Router.POST("/app", models.CreateTrack)
 
 	Router.Run("localhost:8080")
 }

@@ -16,9 +16,9 @@ type Config struct {
 
 func NewConfig() *Config {
 	var c Config
-	_, err := toml.DecodeFile("configs/dbAuth.toml", &c)
+	_, err := toml.DecodeFile("config/dbAuth.toml", &c)
 	if err != nil {
-		log.Fatal("Can't load db")
+		log.Fatalf("Error: open db config file: \n%v ", err)
 	}
 	return &c
 }
